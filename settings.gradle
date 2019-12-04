@@ -1,0 +1,2 @@
+include ':app', ':component_location'
+rootProject.name='LocationMaster'

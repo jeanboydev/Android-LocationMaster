@@ -25,7 +25,6 @@ public class LocationWatcher implements LocationListener {
 
     @Override
     public void onLocationChanged(Location location) {
-        Log.e(LocationWatcher.class.getSimpleName(), "=======onLocationChanged=======");
         if (isOnlyOnce && locationManager != null) {
             locationManager.removeUpdates(this);
         }
@@ -36,17 +35,14 @@ public class LocationWatcher implements LocationListener {
 
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
-        Log.e(LocationWatcher.class.getSimpleName(), "=======onStatusChanged=======");
     }
 
     @Override
     public void onProviderEnabled(String provider) {
-        Log.e(LocationWatcher.class.getSimpleName(), "=======onProviderEnabled=======");
     }
 
     @Override
     public void onProviderDisabled(String provider) {
-        Log.e(LocationWatcher.class.getSimpleName(), "=======onProviderDisabled=======");
         if (callback != null) {
             callback.onNeedOpenSettings(provider);
         }

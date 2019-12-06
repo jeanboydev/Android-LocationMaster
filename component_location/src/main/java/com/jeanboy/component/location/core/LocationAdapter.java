@@ -6,7 +6,7 @@ import com.jeanboy.component.location.dialog.DialogCallback;
 import com.jeanboy.component.location.dialog.DialogHelper;
 import com.jeanboy.component.location.permission.PermissionCallback;
 import com.jeanboy.component.location.permission.PermissionHelper;
-import com.jeanboy.component.location.settings.SettingsHelper;
+import com.jeanboy.component.location.utils.SettingsUtil;
 
 /**
  * @author caojianbo
@@ -24,24 +24,18 @@ public abstract class LocationAdapter implements LocationCallback {
 
     @Override
     public void onNeedPermission(final String permission) {
-        DialogHelper.showRequestAlert(getActivity(), new DialogCallback() {
+        PermissionHelper.request(getActivity(), permission, new PermissionCallback() {
             @Override
-            public void onPositiveClick() {
-                PermissionHelper.request(getActivity(), permission, new PermissionCallback() {
-                    @Override
-                    public void onGranted() {
-                        onPermissionGranted();
-                    }
-
-                    @Override
-                    public void onDenied() {
-                        onPermissionDeny();
-                    }
-                });
+            public void onGranted() {
+                onPermissionGranted();
             }
 
             @Override
-            public void onNegativeClick() {
+            public void onDenied(boolean isNeedRationale) {
+                if (isNeedRationale) {
+                    toShowAlert();
+                    return;
+                }
                 onPermissionDeny();
             }
         });
@@ -52,12 +46,26 @@ public abstract class LocationAdapter implements LocationCallback {
         DialogHelper.showOpenSettingsAlert(getActivity(), new DialogCallback() {
             @Override
             public void onPositiveClick() {
-                SettingsHelper.toOpenSettings(getActivity());
+                SettingsUtil.toOpenLocationSettings(getActivity());
             }
 
             @Override
             public void onNegativeClick() {
                 onSettingsClosed();
+            }
+        });
+    }
+
+    private void toShowAlert() {
+        DialogHelper.showRequestAlert(getActivity(), new DialogCallback() {
+            @Override
+            public void onPositiveClick() {
+                SettingsUtil.toOpenApplicationSettings(getActivity());
+            }
+
+            @Override
+            public void onNegativeClick() {
+                onPermissionDeny();
             }
         });
     }

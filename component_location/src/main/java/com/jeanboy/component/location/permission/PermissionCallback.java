@@ -8,5 +8,5 @@ public interface PermissionCallback {
 
     void onGranted();
 
-    void onDenied();
+    void onDenied(boolean isNeedRationale);
 }

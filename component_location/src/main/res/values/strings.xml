@@ -1,14 +1,14 @@
 <resources>
     <string name="app_name">component_location</string>
 
-    <string name="dialog_location_title">Location access is not granted.</string>
-    <string name="dialog_location_message">Allow to access your location while you use the app?</string>
-    <string name="dialog_location_cancel">Don\'t Allow</string>
-    <string name="dialog_location_ok">Allow</string>
+    <string name="dialog_location_title">请求位置权限</string>
+    <string name="dialog_location_message">该功能需要获取您的位置权限</string>
+    <string name="dialog_location_cancel">取消</string>
+    <string name="dialog_location_ok">去开启</string>
 
 
     <string name="dialog_settings_title">打开位置服务</string>
-    <string name="dialog_settings_message">无法获取到您的位置，请打开位置服务?</string>
+    <string name="dialog_settings_message">无法获取到您的位置，请打开位置服务</string>
     <string name="dialog_settings_cancel">取消</string>
     <string name="dialog_settings_ok">去设置</string>
 </resources>

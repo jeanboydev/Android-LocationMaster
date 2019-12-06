@@ -1,10 +1,9 @@
 package com.jeanboy.component.location.permission;
 
+import android.app.Activity;
 import android.content.pm.PackageManager;
-import android.text.TextUtils;
-import android.util.Log;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
@@ -42,7 +41,6 @@ public class PermissionLifeManager extends LifeCycleManager {
     @Override
     public void onStart() {
         super.onStart();
-        Log.e(PermissionLifeManager.class.getSimpleName(), "====onStart=======");
         if (permissions == null) return;
         if (context == null) return;
         if (context instanceof FragmentActivity) {
@@ -55,7 +53,6 @@ public class PermissionLifeManager extends LifeCycleManager {
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions,
                                            int[] grantResults) {
-        Log.e(PermissionLifeManager.class.getSimpleName(), "====onRequestPermissionsResult=======");
         if (Code.REQUEST == requestCode
                 && grantResults.length > 0
                 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -63,8 +60,18 @@ public class PermissionLifeManager extends LifeCycleManager {
                 permissionCallback.onGranted();
             }
         } else {
+            if (context instanceof Activity && permissions.length > 0) {
+                if (!ActivityCompat.shouldShowRequestPermissionRationale((Activity) context,
+                        permissions[0])) {
+                    // 用户点击了不在询问
+                    if (permissionCallback != null) {
+                        permissionCallback.onDenied(true);
+                    }
+                    return;
+                }
+            }
             if (permissionCallback != null) {
-                permissionCallback.onDenied();
+                permissionCallback.onDenied(false);
             }
         }
     }

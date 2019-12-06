@@ -35,7 +35,6 @@ public class LocationHelper {
                                         @NonNull LocationManager locationManager,
                                         LocationCallback callback) {
         if (!locationManager.isProviderEnabled(provider)) {
-            Log.e(LocationMaster.class.getSimpleName(), provider + "===定位不可用，需要打开设置===");
             // 定位不可用，需要打开设置
             if (callback != null) {
                 callback.onNeedOpenSettings(provider);

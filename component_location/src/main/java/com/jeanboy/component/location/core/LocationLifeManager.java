@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import com.jeanboy.component.location.LocationMaster;
 import com.jeanboy.component.location.lifecycle.LifeCycleManager;
 import com.jeanboy.component.location.lifecycle.Tag;
+import com.jeanboy.component.location.utils.LogUtil;
 
 /**
  * @author caojianbo
@@ -60,7 +61,6 @@ public class LocationLifeManager extends LifeCycleManager {
 
     @Override
     public void onStop() {
-        Log.e(LocationLifeManager.class.getSimpleName(), "========onStop=========");
         releaseResource();
     }
 
@@ -84,15 +84,15 @@ public class LocationLifeManager extends LifeCycleManager {
         }
 
         locationManager = getLocationManager(context);
-        Log.e(LocationMaster.class.getSimpleName(), "===先获取缓存位置===");
+        // 先获取缓存位置
         Location bestLocation = LocationHelper.getBestLocation(locationManager);
         if (bestLocation != null) {
-            Log.e(LocationMaster.class.getSimpleName(), "===缓存可用===");
+            // 缓存位置可用
             if (callback != null) {
                 callback.onLocationChange(bestLocation);
             }
         } else {
-            Log.e(LocationMaster.class.getSimpleName(), "===缓存不可用，请求一次网络定位===");
+            // 缓存不可用，请求一次网络定位
             String provider = LocationManager.NETWORK_PROVIDER;
             if (!LocationHelper.checkProvider(provider, locationManager, callback)) {
                 return;
@@ -116,19 +116,19 @@ public class LocationLifeManager extends LifeCycleManager {
         }
 
         locationManager = getLocationManager(context);
-        Log.e(LocationMaster.class.getSimpleName(), "===先获取缓存位置===");
+        // 先获取缓存位置
         Location bestLocation = LocationHelper.getBestLocation(locationManager);
         if (bestLocation != null) {
-            Log.e(LocationMaster.class.getSimpleName(), "===缓存可用===");
+            // 缓存位置可用
             if (callback != null) {
                 callback.onLocationChange(bestLocation);
             }
         }
 
-        Log.e(LocationMaster.class.getSimpleName(), "===然后持续获取网络位置===");
+        // 然后持续获取网络位置
         String provider = LocationManager.NETWORK_PROVIDER;
         if (!LocationHelper.checkProvider(provider, locationManager, callback)) {
-            Log.e(LocationMaster.class.getSimpleName(), "===网络位置开关未打开===");
+            // 网络位置开关未打开
             return;
         }
 
@@ -148,18 +148,18 @@ public class LocationLifeManager extends LifeCycleManager {
         }
 
         locationManager = getLocationManager(context);
-        Log.e(LocationMaster.class.getSimpleName(), "===先获取缓存位置===");
+        // 先获取缓存位置
         Location bestLocation = LocationHelper.getBestLocation(locationManager);
         if (bestLocation != null) {
-            Log.e(LocationMaster.class.getSimpleName(), "===缓存可用===");
+            // 缓存位置可用
             if (callback != null) {
                 callback.onLocationChange(bestLocation);
             }
         } else {
-            Log.e(LocationMaster.class.getSimpleName(), "===缓存不可用，优先获取网络位置===");
+            // 缓存不可用，优先获取网络位置
             String networkProvider = LocationManager.NETWORK_PROVIDER;
             if (LocationHelper.checkProvider(networkProvider, locationManager, callback)) {
-                Log.e(LocationMaster.class.getSimpleName(), "===网络位置开关已打开===");
+                // 网络位置开关已打开
                 LocationWatcher locationWatcher = watcherMap.get(Type.NETWORK);
                 if (locationWatcher != null) {
                     locationManager.removeUpdates(locationWatcher);
@@ -171,10 +171,10 @@ public class LocationLifeManager extends LifeCycleManager {
             }
         }
 
-        Log.e(LocationMaster.class.getSimpleName(), "===最后持续获取 GPS 位置===");
+        // 最后持续获取 GPS 位置
         String gpsProvider = LocationManager.GPS_PROVIDER;
         if (!LocationHelper.checkProvider(gpsProvider, locationManager, callback)) {
-            Log.e(LocationMaster.class.getSimpleName(), "===GPS 位置开关未打开===");
+            // GPS 位置开关未打开
             return;
         }
 

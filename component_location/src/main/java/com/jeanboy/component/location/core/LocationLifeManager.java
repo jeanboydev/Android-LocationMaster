@@ -5,14 +5,11 @@ import android.content.Context;
 import android.location.Location;
 import android.location.LocationManager;
 import android.util.ArrayMap;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.jeanboy.component.location.LocationMaster;
 import com.jeanboy.component.location.lifecycle.LifeCycleManager;
 import com.jeanboy.component.location.lifecycle.Tag;
-import com.jeanboy.component.location.utils.LogUtil;
 
 /**
  * @author caojianbo

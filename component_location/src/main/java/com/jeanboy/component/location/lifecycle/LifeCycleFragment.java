@@ -2,7 +2,6 @@ package com.jeanboy.component.location.lifecycle;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;

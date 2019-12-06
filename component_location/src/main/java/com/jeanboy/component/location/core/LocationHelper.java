@@ -4,11 +4,9 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.location.Location;
 import android.location.LocationManager;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.jeanboy.component.location.LocationMaster;
 import com.jeanboy.component.location.permission.PermissionHelper;
 
 import java.util.List;

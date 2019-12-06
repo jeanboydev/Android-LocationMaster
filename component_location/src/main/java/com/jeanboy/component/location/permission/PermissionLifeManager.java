@@ -63,7 +63,7 @@ public class PermissionLifeManager extends LifeCycleManager {
             if (context instanceof Activity && permissions.length > 0) {
                 if (!ActivityCompat.shouldShowRequestPermissionRationale((Activity) context,
                         permissions[0])) {
-                    // 用户点击了不在询问
+                    // 用户点击了不再询问
                     if (permissionCallback != null) {
                         permissionCallback.onDenied(true);
                     }

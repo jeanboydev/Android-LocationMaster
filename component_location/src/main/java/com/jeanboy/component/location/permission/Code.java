@@ -1,4 +1,4 @@
-package com.jeanboy.component.location.permission.constant;
+package com.jeanboy.component.location.permission;
 
 /**
  * @author caojianbo

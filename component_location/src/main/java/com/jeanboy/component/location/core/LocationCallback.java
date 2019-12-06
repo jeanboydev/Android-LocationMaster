@@ -10,7 +10,7 @@ public interface LocationCallback {
 
     void onNeedPermission(String permission);
 
-    void onNeedOpenSettings(boolean isGPS);
+    void onNeedOpenSettings(String provider);
 
-    void onUpdate(Location location, boolean isGPS);
+    void onLocationChange(Location location);
 }

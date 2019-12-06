@@ -14,8 +14,35 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="50dp"
         android:layout_marginEnd="32dp"
-        android:onClick="toRequestLocation"
-        android:text="获取位置信息" />
+        android:onClick="toRequestLocationOnce"
+        android:text="获取一次位置信息" />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="32dp"
+        android:onClick="toRequestNetworkLocation"
+        android:text="持续获取网络位置信息" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="32dp"
+        android:onClick="toRequestGPSLocation"
+        android:text="持续获取GPS位置信息" />
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="32dp"
+        android:onClick="toJump"
+        android:text="跳转页面" />
 
     <TextView
         android:id="@+id/iv_location"

@@ -10,6 +10,11 @@ import android.provider.Settings;
  */
 public class SettingsHelper {
 
+    /**
+     * 打开系统位置设置界面
+     *
+     * @param context
+     */
     public static void toOpenSettings(Context context) {
         Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

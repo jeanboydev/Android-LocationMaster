@@ -1,86 +1,55 @@
 package com.jeanboy.component.location.permission;
 
-import android.content.Context;
 import android.content.pm.PackageManager;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
-import com.jeanboy.component.location.lifecycle.LifeManager;
-import com.jeanboy.component.location.permission.constant.Code;
-import com.jeanboy.component.location.permission.constant.Tag;
+import com.jeanboy.component.location.lifecycle.LifeCycleManager;
+import com.jeanboy.component.location.lifecycle.Tag;
 
 /**
  * @author caojianbo
  * @since 2019/12/3 15:58
  */
-public class PermissionLifeManager extends LifeManager {
+public class PermissionLifeManager extends LifeCycleManager {
 
-    private String permission;
-    private PermissionCallback permissionCallback;
+    private final String[] permissions;
+    private final PermissionCallback permissionCallback;
 
-    public void setPermission(String permission) {
-        this.permission = permission;
-    }
-
-    public void setPermissionCallback(PermissionCallback permissionCallback) {
-        this.permissionCallback = permissionCallback;
+    public PermissionLifeManager(String[] permissions, PermissionCallback callback) {
+        this.permissions = permissions;
+        this.permissionCallback = callback;
     }
 
     private void requestPermissions(FragmentActivity activity, String[] permissions,
                                     int requestCode) {
         Fragment lifeFragment = activity.getSupportFragmentManager()
-                .findFragmentByTag(Tag.LIEF_MANAGER);
+                .findFragmentByTag(getTag());
         if (lifeFragment != null) {
             lifeFragment.requestPermissions(permissions, requestCode);
         }
     }
 
     @Override
-    public void onAttach(Context context) {
-        Log.e(PermissionLifeManager.class.getSimpleName(), "====onAttach=======");
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        Log.e(PermissionLifeManager.class.getSimpleName(), "====onCreate=======");
+    protected String getTag() {
+        return Tag.PERMISSION_LIFE_MANAGER;
     }
 
     @Override
     public void onStart() {
+        super.onStart();
         Log.e(PermissionLifeManager.class.getSimpleName(), "====onStart=======");
-        if (TextUtils.isEmpty(permission)) return;
-        if (context != null && context instanceof FragmentActivity) {
-            requestPermissions((FragmentActivity) context, new String[]{permission}, Code.REQUEST);
+        if (permissions == null) return;
+        if (context == null) return;
+        if (context instanceof FragmentActivity) {
+            requestPermissions((FragmentActivity) context, permissions, Code.REQUEST);
+        } else {
+            // TODO: 2019/12/6 context 不是 activity
         }
-    }
-
-    @Override
-    public void onResume() {
-        Log.e(PermissionLifeManager.class.getSimpleName(), "====onResume=======");
-    }
-
-    @Override
-    public void onPause() {
-        Log.e(PermissionLifeManager.class.getSimpleName(), "====onPause=======");
-    }
-
-    @Override
-    public void onStop() {
-        Log.e(PermissionLifeManager.class.getSimpleName(), "====onStop=======");
-    }
-
-    @Override
-    public void onDestroy() {
-        Log.e(PermissionLifeManager.class.getSimpleName(), "====onDestroy=======");
-    }
-
-    @Override
-    public void onDetach() {
-        Log.e(PermissionLifeManager.class.getSimpleName(), "====onDetach=======");
     }
 
     @Override

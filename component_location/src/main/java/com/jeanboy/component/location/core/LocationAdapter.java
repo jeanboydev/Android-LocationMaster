@@ -1,7 +1,5 @@
 package com.jeanboy.component.location.core;
 
-import android.app.Activity;
-
 import androidx.fragment.app.FragmentActivity;
 
 import com.jeanboy.component.location.dialog.DialogCallback;
@@ -15,7 +13,6 @@ import com.jeanboy.component.location.settings.SettingsHelper;
  * @since 2019/12/3 16:46
  */
 public abstract class LocationAdapter implements LocationCallback {
-
 
     public abstract FragmentActivity getActivity();
 
@@ -51,7 +48,7 @@ public abstract class LocationAdapter implements LocationCallback {
     }
 
     @Override
-    public void onNeedOpenSettings(boolean isGPS) {
+    public void onNeedOpenSettings(String provider) {
         DialogHelper.showOpenSettingsAlert(getActivity(), new DialogCallback() {
             @Override
             public void onPositiveClick() {

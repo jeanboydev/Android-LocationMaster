@@ -4,6 +4,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 
 /**
  * @author caojianbo
@@ -11,35 +12,43 @@ import android.os.Bundle;
  */
 public class LocationWatcher implements LocationListener {
 
+    private final boolean isOnlyOnce;
+    private final LocationManager locationManager;
     private final LocationCallback callback;
 
-    private String currentProvider;
-
-    public LocationWatcher(LocationCallback callback) {
+    public LocationWatcher(boolean isOnlyOnce, LocationManager locationManager,
+                           LocationCallback callback) {
+        this.isOnlyOnce = isOnlyOnce;
+        this.locationManager = locationManager;
         this.callback = callback;
     }
 
     @Override
     public void onLocationChanged(Location location) {
+        Log.e(LocationWatcher.class.getSimpleName(), "=======onLocationChanged=======");
+        if (isOnlyOnce && locationManager != null) {
+            locationManager.removeUpdates(this);
+        }
         if (callback != null) {
-            callback.onUpdate(location, LocationManager.GPS_PROVIDER.equals(currentProvider));
+            callback.onLocationChange(location);
         }
     }
 
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
-
+        Log.e(LocationWatcher.class.getSimpleName(), "=======onStatusChanged=======");
     }
 
     @Override
     public void onProviderEnabled(String provider) {
-        currentProvider = provider;
+        Log.e(LocationWatcher.class.getSimpleName(), "=======onProviderEnabled=======");
     }
 
     @Override
     public void onProviderDisabled(String provider) {
+        Log.e(LocationWatcher.class.getSimpleName(), "=======onProviderDisabled=======");
         if (callback != null) {
-            callback.onNeedOpenSettings(LocationManager.GPS_PROVIDER.equals(provider));
+            callback.onNeedOpenSettings(provider);
         }
     }
 }

@@ -7,7 +7,7 @@ import android.os.Bundle;
  * @author caojianbo
  * @since 2019/12/3 15:52
  */
-public class ActivityFragmentLifeCycle implements LifeCycleListener {
+public class LifeCycle implements LifeCycleListener {
 
     private LifeCycleListener lifeCycleListener;
 

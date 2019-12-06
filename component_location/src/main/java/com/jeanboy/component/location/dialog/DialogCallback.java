@@ -9,5 +9,4 @@ public interface DialogCallback {
     void onPositiveClick();
 
     void onNegativeClick();
-
 }
